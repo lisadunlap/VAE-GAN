@@ -8,14 +8,13 @@ from torch.nn import functional as F
 from torchvision import datasets, transforms
 from torchvision.utils import save_image
 import torchvision.utils as vutils
-from mnist import Net
 from utils import idx2onehot
 
 class VAE(nn.Module):
     def __init__(self):
         super(VAE, self).__init__()
 
-        self.fc1 = nn.Linear(11025, 400)
+        self.fc1 = nn.Linear(12648, 400)
         self.fc21 = nn.Linear(400, 20)
         self.fc22 = nn.Linear(400, 20)
         self.fc3 = nn.Linear(20, 400)
@@ -87,21 +86,6 @@ class VAE(nn.Module):
         else:
           return mu
 
-
-    #def decode_new(self,z, y):
-    #    z = z.view(-1,z.size(1),1,1)
-    #    return(self.dec_(z, y))
-
-
-    #def decode(self, z, y):
-    #    z = z.view(-1,20)
-    #    y_c = self.to_categrical(y)
-    #    cat = torch.cat((z, y_c), dim=-1)
-    #    h3 = self.relu(self.fc3(cat))
-    #    ret = self.sigmoid(self.fc4(h3))
-    #    ret = torch.narrow(ret, 1, 0, 784)
-    #    return ret
-
     def dec_params(self):
         return self.fc3, self.fc4
 
@@ -123,7 +107,7 @@ class Aux(nn.Module):
     def __init__(self):
         super(Aux,self).__init__()
 
-        self.fc3 = nn.Linear(30,400)
+        self.fc3 = nn.Linear(1643,400)
         self.fc4 = nn.Linear(400,11025)
         self.relu = nn.ReLU()
         self.sigmoid = nn.Sigmoid()
@@ -160,8 +144,6 @@ class Aux(nn.Module):
         #other.fc3,other.fc4 = self.dec_params()
         #return self.decode(z).view(-1,28,28)
         return self.decode(z, y, label, alpha)
-
-
     
 
 class NetD(nn.Module):
@@ -169,9 +151,9 @@ class NetD(nn.Module):
         super(NetD, self).__init__()
         
         self.label_emb = nn.Embedding(1623, 1623)
-        
+
         self.model = nn.Sequential(
-            nn.Linear(11025, 1024),
+            nn.Linear(12648, 1024),
             nn.LeakyReLU(0.2, inplace=True),
             nn.Dropout(0.3),
             nn.Linear(1024, 512),
@@ -181,7 +163,6 @@ class NetD(nn.Module):
             nn.LeakyReLU(0.2, inplace=True),
             nn.Dropout(0.3),
         )
-        
         self.main = nn.Sequential(
             nn.Linear(256, 1),
             nn.Sigmoid()
