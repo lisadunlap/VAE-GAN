@@ -10,4 +10,6 @@ Thumbs.db
 
 .idea/
 .ipynb_checkpoints
-__pycache__
+__pycache__/
+
+.gitignore
