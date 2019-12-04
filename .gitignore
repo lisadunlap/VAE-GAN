@@ -9,7 +9,7 @@ ehthumbs.db
 Thumbs.db
 
 .idea/
-.ipynb_checkpoints
+.ipynb_checkpoints/
 __pycache__/
 
 .gitignore
