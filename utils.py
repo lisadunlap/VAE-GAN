@@ -2,7 +2,7 @@ import torch
 from torch.autograd import Variable
 import matplotlib.pyplot as plt
 import numpy as np
-from mnist import Net
+from data.mnist import Net
 
 def idx2onehot(idx, n, idx2=None, alpha = 1):
 

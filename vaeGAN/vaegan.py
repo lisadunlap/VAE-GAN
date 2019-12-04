@@ -1,9 +1,12 @@
 from __future__ import print_function
+import argparse
 import torch
 import torch.utils.data
-from torch import nn
+from torch import nn, optim
 from torch.autograd import Variable
 from torch.nn import functional as F
+from torchvision import datasets, transforms
+from torchvision.utils import save_image
 import torchvision.utils as vutils
 from data.mnist import Net
 from utils import idx2onehot
